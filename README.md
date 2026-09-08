@@ -1,6 +1,6 @@
 # Tutor
 
-A quiet, score-first piano practice space. The exercise score sits above a large isometric performance cube on a light background. A smooth, fading trace compares MIDI input with a reference lesson. All processing and storage happen in the browser. No server, account, external JavaScript dependency, or MIDI output is needed.
+A quiet, score-first piano practice space. A zoomable A4-proportioned score page sits on the left, with a large isometric performance cube on the right. All controls, status, and progress stay above both surfaces on a light background. A smooth, fading trace compares MIDI input with a reference lesson. All processing and storage happen in the browser. No server, account, external JavaScript dependency, or MIDI output is needed.
 
 ## Open the app
 
@@ -20,7 +20,7 @@ For local development, serve the repository root, for example `python3 -m http.s
 4. Press **Start practice**, wait for the four-beat count-in, then play. Optional metronome and tempo scaling are available. Tempo scaling applies equally to reference onsets and durations, including tempo changes in the MIDI file.
 5. The session ends 1.5 seconds after the last reference release. Stop saves a partial session, clearly marked. Leaving the tab or losing the selected input stops the session to avoid unreliable background timing.
 
-Focus view hides secondary controls and history. Session summaries appear below the cube. Up to 50 sessions, including raw matched-note deviations and sampled traces, are saved locally; the history shows the latest 30. Local files remain on this browser and do not sync between devices. Browser data clearing removes them. Storage failures are reported instead of claiming a successful save.
+Practice, listening, and the demo enter focus view automatically, keeping all controls at the top while hiding history and help. Stopping restores the previous view. Focus can also be toggled manually. Score zoom ranges from 20% to 300% of the panel width; Fit page shows the entire portrait sheet. Zoomed pages can be scrolled. Narrow screens stack the score and graph vertically. Session summaries appear below the cube. Up to 50 sessions, including raw matched-note deviations and sampled traces, are saved locally; the history shows the latest 30. Local files remain on this browser and do not sync between devices. Browser data clearing removes them. Storage failures are reported instead of claiming a successful save.
 
 ## The cube
 
@@ -48,25 +48,40 @@ For each matched note, the three credits are:
 
 Each percentage is `100 × sum(credits) / (referenceNoteCount + extraNoteCount)`. Missing notes contribute zero. Unreleased notes get zero duration credit. The final numbers use raw events, never smoothed visual positions. These thresholds are transparent starting values for pedagogical discussion, not validated assessment norms. Different piano velocity curves and input latency can affect comparisons; this version has no device calibration.
 
-## Add lessons
+## Lesson library and shareable links
 
-**Add lesson** imports a `.mid` / `.midi` file and a PNG, JPEG, WebP, or SVG score image into this browser's IndexedDB. Each lesson retains its name, parsed reference, and score across reloads. Maximum sizes: 5 MB MIDI, 15 MB image, 20,000 notes. A score image is displayed as supplied, without automatic score following or page turning; combine pages into one image if needed.
+Open a repository lesson directly with `?lesson=<folder>`:
 
-To make a lesson available to every student, commit its MIDI and image under `lessons/`, then add an entry to `lessons/index.json`:
+- [First phrase](https://muk-research.github.io/Tutor/?lesson=test)
+- [Even touch](https://muk-research.github.io/Tutor/?lesson=legato)
+- [Shaping a phrase](https://muk-research.github.io/Tutor/?lesson=dynamics)
+
+Each lesson lives in a lowercase `library/` directory, with one subfolder per lesson. Folder names are case-sensitive and may contain letters, digits, hyphens, and underscores (start with a letter or digit).
+
+For example, commit `library/test/test.mid` and optionally `library/test/test.png`, then share `?lesson=test`. No metadata is required with this naming convention. The loader also checks `<folder>.svg`, `.jpg`, `.webp`, and `score.svg`, `.png`, `.jpg`, `.webp`. A missing image leaves a clean page placeholder; automatic notation from MIDI is not implemented. Uploaded page images are fitted onto an A4-proportioned sheet without cropping.
+
+An optional `library/test/lesson.json` allows custom filenames and a friendly title:
 
 ```json
 {
-  "id": "exercise-02",
-  "title": "Exercise 02 · Legato",
-  "midi": "./lessons/exercise-02.mid",
-  "image": "./lessons/exercise-02.png"
+  "title": "First phrase · C major",
+  "midi": "reference.mid",
+  "image": "score.png"
 }
 ```
 
-The manifest is an array. Keep paths relative so the app works under `/Tutor/`. Use original or appropriately licensed lesson material.
+Files named in the metadata must be directly inside that lesson folder. Set `"image": null` to explicitly omit a score. The MIDI file remains required. Each lesson's timing and dynamics come from the MIDI, not the image.
+
+The publishing workflow automatically regenerates `library/index.json` from lesson folders using `node tools/index-library.mjs`. This supplies the dropdown list; direct `?lesson=` links also load folders absent from the index. Run the same command after adding folders for local development. An invalid or missing lesson reports an error and leaves available lessons usable. Selecting another repository lesson updates the address bar. **Copy lesson link** copies the URL; browser-imported lessons cannot be shared by URL.
+
+The three included examples use the same original C-major phrase with different reference tempi or velocity shapes, and include portrait scores. The older `lessons/` assets remain for compatibility and parser tests.
+
+## Import a personal lesson
+
+**Add lesson** imports a `.mid` / `.midi` file and an optional PNG, JPEG, WebP, or SVG score image into this browser's IndexedDB. Each lesson retains its name, parsed reference, and score across reloads. Maximum sizes: 5 MB MIDI, 15 MB image, 20,000 notes. Score images are displayed as supplied, without automatic score following or page turning. Use original or appropriately licensed lesson material.
 
 ## Verification
 
-`npm test` covers the sample MIDI, tempo changes across tracks, running status, malformed files, chord matching, repeated notes, channel-specific releases, tempo scaling, axis signs, and missed/extra/unreleased-note penalties. Syntax and local asset references are also checked during implementation. Real MIDI hardware and browser visual testing are still needed with the intended piano.
+`npm test` covers the sample MIDI, tempo changes across tracks, running status, malformed files, chord matching, repeated notes, channel-specific releases, tempo scaling, axis signs, and missed/extra/unreleased-note penalties. Library tests cover folder links without metadata or catalog entries, optional scores, custom filenames, invalid paths, missing MIDI, and all bundled lessons. Syntax and local asset references are also checked during implementation. Real MIDI hardware and browser visual testing are still needed with the intended piano.
 
 Browser and hosting references: [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API), [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).

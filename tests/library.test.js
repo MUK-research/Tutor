@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {loadLibraryLesson,validLessonId} from '../library.js';
+const sample=await readFile(new URL('../library/test/test.mid',import.meta.url));
+const fake=files=>async(url)=>files[url]===undefined?new Response('',{status:404}):new Response(typeof files[url]==='object'&&!Buffer.isBuffer(files[url])?JSON.stringify(files[url]):files[url]);
+test('bare folder links work without a catalog entry or lesson metadata',async()=>{const lesson=await loadLibraryLesson('unlisted',fake({'./library/unlisted/unlisted.mid':sample,'./library/unlisted/unlisted.png':'image'}));assert.equal(lesson.id,'unlisted');assert.equal(lesson.image,'./library/unlisted/unlisted.png');assert.equal(lesson.notes.length,16);assert.equal(lesson.shared,true);});
+test('a lesson with MIDI only is valid',async()=>{const lesson=await loadLibraryLesson('test',fake({'./library/test/test.mid':sample}));assert.equal(lesson.image,null);});
+test('metadata selects custom filenames and titles',async()=>{const lesson=await loadLibraryLesson('test',fake({'./library/test/lesson.json':{title:'Etude',midi:'reference.mid',image:'page one.png'},'./library/test/reference.mid':sample}));assert.equal(lesson.title,'Etude');assert.equal(lesson.image,'./library/test/page%20one.png');});
+test('bad lesson links and unsafe paths are rejected before fetching files',async()=>{for(const id of ['../test','test/other','https://a','',null]){assert.equal(validLessonId(id),false);await assert.rejects(loadLibraryLesson(id,()=>{throw Error('Must not fetch');}),/Invalid library folder/);}await assert.rejects(loadLibraryLesson('test',fake({'./library/test/lesson.json':{midi:'../private.mid'}})),/Invalid MIDI filename/);});
+test('missing reference and malformed metadata return actionable errors',async()=>{await assert.rejects(loadLibraryLesson('test',fake({})),/MIDI file not found/);await assert.rejects(loadLibraryLesson('test',fake({'./library/test/lesson.json':'[]'})),/Invalid lesson.json/);});
+test('all bundled folders load through the same path as a shared lesson link',async()=>{const request=async path=>{try{return new Response(await readFile(new URL('../'+path,import.meta.url)));}catch{return new Response('',{status:404});}};for(const id of ['test','legato','dynamics']){const lesson=await loadLibraryLesson(id,request);assert.equal(lesson.notes.length,16);assert.ok(lesson.image);}});

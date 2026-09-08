@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 794 1123">
+<rect width="794" height="1123" fill="white"/>
+<text x="70" y="95" font-family="Georgia,serif" font-size="28" fill="#26383b">Shaping a phrase</text>
+<text x="70" y="133" font-family="serif" font-size="18">Quarter note = 80 · 4/4</text>
+<g stroke="#26383b" fill="#26383b">
+<path d="M70 210H724" stroke-width=".8"/>
+<path d="M70 222H724" stroke-width=".8"/>
+<path d="M70 234H724" stroke-width=".8"/>
+<path d="M70 246H724" stroke-width=".8"/>
+<path d="M70 258H724" stroke-width=".8"/>
+<text x="73" y="259" font-family="serif" font-size="65" stroke="none">𝄞</text>
+<text x="72" y="195" font-family="serif" font-size="13" stroke="none">1</text>
+<ellipse cx="175" cy="270" rx="7" ry="5" transform="rotate(-20 175 270)"/>
+<path d="M181 270V236" stroke-width="1.4"/>
+<path d="M164 270H186"/>
+<ellipse cx="325" cy="264" rx="7" ry="5" transform="rotate(-20 325 264)"/>
+<path d="M331 264V230" stroke-width="1.4"/>
+<ellipse cx="475" cy="258" rx="7" ry="5" transform="rotate(-20 475 258)"/>
+<path d="M481 258V224" stroke-width="1.4"/>
+<ellipse cx="625" cy="252" rx="7" ry="5" transform="rotate(-20 625 252)"/>
+<path d="M631 252V218" stroke-width="1.4"/>
+<path d="M722 210V258"/>
+<text x="166" y="315" font-family="serif" font-style="italic" font-size="24" stroke="none">p</text>
+<path d="M225 314L665 306M225 314L665 322" fill="none"/>
+<path d="M70 410H724" stroke-width=".8"/>
+<path d="M70 422H724" stroke-width=".8"/>
+<path d="M70 434H724" stroke-width=".8"/>
+<path d="M70 446H724" stroke-width=".8"/>
+<path d="M70 458H724" stroke-width=".8"/>
+<text x="73" y="459" font-family="serif" font-size="65" stroke="none">𝄞</text>
+<text x="72" y="395" font-family="serif" font-size="13" stroke="none">2</text>
+<ellipse cx="175" cy="446" rx="7" ry="5" transform="rotate(-20 175 446)"/>
+<path d="M181 446V412" stroke-width="1.4"/>
+<ellipse cx="325" cy="452" rx="7" ry="5" transform="rotate(-20 325 452)"/>
+<path d="M331 452V418" stroke-width="1.4"/>
+<ellipse cx="475" cy="458" rx="7" ry="5" transform="rotate(-20 475 458)"/>
+<path d="M481 458V424" stroke-width="1.4"/>
+<ellipse cx="625" cy="464" rx="7" ry="5" transform="rotate(-20 625 464)"/>
+<path d="M631 464V430" stroke-width="1.4"/>
+<path d="M722 410V458"/>
+<path d="M225 514L665 506M225 514L665 522" fill="none"/>
+<path d="M70 610H724" stroke-width=".8"/>
+<path d="M70 622H724" stroke-width=".8"/>
+<path d="M70 634H724" stroke-width=".8"/>
+<path d="M70 646H724" stroke-width=".8"/>
+<path d="M70 658H724" stroke-width=".8"/>
+<text x="73" y="659" font-family="serif" font-size="65" stroke="none">𝄞</text>
+<text x="72" y="595" font-family="serif" font-size="13" stroke="none">3</text>
+<ellipse cx="175" cy="670" rx="7" ry="5" transform="rotate(-20 175 670)"/>
+<path d="M181 670V636" stroke-width="1.4"/>
+<path d="M164 670H186"/>
+<ellipse cx="325" cy="658" rx="7" ry="5" transform="rotate(-20 325 658)"/>
+<path d="M331 658V624" stroke-width="1.4"/>
+<ellipse cx="475" cy="646" rx="7" ry="5" transform="rotate(-20 475 646)"/>
+<path d="M481 646V612" stroke-width="1.4"/>
+<ellipse cx="625" cy="628" rx="7" ry="5" transform="rotate(-20 625 628)"/>
+<path d="M619 628V662" stroke-width="1.4"/>
+<path d="M722 610V658"/>
+<text x="166" y="715" font-family="serif" font-style="italic" font-size="24" stroke="none">mf</text>
+<path d="M225 706L665 714M225 722L665 714" fill="none"/>
+<path d="M70 810H724" stroke-width=".8"/>
+<path d="M70 822H724" stroke-width=".8"/>
+<path d="M70 834H724" stroke-width=".8"/>
+<path d="M70 846H724" stroke-width=".8"/>
+<path d="M70 858H724" stroke-width=".8"/>
+<text x="73" y="859" font-family="serif" font-size="65" stroke="none">𝄞</text>
+<text x="72" y="795" font-family="serif" font-size="13" stroke="none">4</text>
+<ellipse cx="175" cy="834" rx="7" ry="5" transform="rotate(-20 175 834)"/>
+<path d="M169 834V868" stroke-width="1.4"/>
+<ellipse cx="325" cy="846" rx="7" ry="5" transform="rotate(-20 325 846)"/>
+<path d="M331 846V812" stroke-width="1.4"/>
+<ellipse cx="475" cy="858" rx="7" ry="5" transform="rotate(-20 475 858)"/>
+<path d="M481 858V824" stroke-width="1.4"/>
+<ellipse cx="625" cy="870" rx="7" ry="5" transform="rotate(-20 625 870)"/>
+<path d="M631 870V836" stroke-width="1.4"/>
+<path d="M614 870H636"/>
+<path d="M722 810V858"/>
+<path d="M225 906L665 914M225 922L665 914" fill="none"/>
+</g><text x="397" y="1060" text-anchor="middle" font-family="serif" font-size="14" fill="#64777b">Tutor · 1</text></svg>
