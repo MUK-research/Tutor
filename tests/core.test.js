@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {parseMidi,Performance} from '../core.js';
+const note=(pitch=60,onset=0,duration=1)=>({pitch,onset,duration,velocity:72});
+const arrayBuffer=b=>b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength);
+function midi(events,format=0,tracks=1){const header=[77,84,104,100,0,0,0,6,0,format,0,tracks,1,224];return new Uint8Array([...header,...events.flatMap(t=>[77,84,114,107,0,0,t.length>>8,t.length&255,...t])]).buffer;}
+test('sample file and tempo agree with the four-bar score',()=>{const result=parseMidi(arrayBuffer(readFileSync(new URL('../lessons/first-phrase.mid',import.meta.url))));assert.equal(result.notes.length,16);assert.equal(result.bpm,80);assert.equal(result.duration,12);assert.equal(result.notes[0].duration,.75);assert.equal(result.notes[15].onset,11.25);});
+test('tempo changes are integrated across tracks; running status and velocity-zero releases work',()=>{const tempo=[0,255,81,3,7,161,32,131,96,255,81,3,15,66,64,0,255,47,0];const notes=[0,144,60,72,131,96,60,0,0,144,62,72,131,96,128,62,0,0,255,47,0];const result=parseMidi(midi([tempo,notes],1,2));assert.deepEqual(result.notes.map(n=>[n.onset,n.duration]),[[0,.5],[.5,1]]);});
+test('malformed and unsupported files fail clearly',()=>{assert.throws(()=>parseMidi(new Uint8Array([1,2,3]).buffer),/truncated/);assert.throws(()=>parseMidi(midi([[]],2)),/format 0 or 1/);assert.throws(()=>parseMidi(midi([[0,144,60]])),/truncated/);});
+test('perfect polyphonic performance receives three 100 scores',()=>{const p=new Performance([note(60),note(64),note(67)]);for(const pitch of [67,60,64]){p.on(pitch,72,0);p.off(pitch,1);}const r=p.result();for(const key of ['dynamics','timing','duration'])assert.equal(r[key],100);assert.equal(r.missing,0);});
+test('signed axes and raw scores have the intended directions',()=>{const p=new Performance([note()]);const m=p.on(60,88,.125);assert.deepEqual(p.point(m),[.5,.5,0]);p.off(60,1.625);assert.deepEqual(p.point(m),[.5,.5,.5]);const r=p.result();assert.equal(r.dynamics,50);assert.equal(r.timing,50);assert.equal(r.duration,50);});
+test('missed notes and extra notes cannot produce a perfect score',()=>{const p=new Performance([note(),note(62,2)]);p.on(60,72,0);p.off(60,1);p.on(80,72,2);p.off(80,3);const r=p.result();assert.equal(r.missing,1);assert.equal(r.extra,1);assert.ok(Math.abs(r.dynamics-100/3)<1e-10);});
+test('repeated notes are consumed once and large timing errors stay unmatched',()=>{const p=new Performance([note(60,0,.2),note(60,.4,.2)]);assert.equal(p.on(60,72,.39).index,1);assert.equal(p.on(60,72,.1).index,0);assert.equal(p.on(60,72,.2),null);assert.equal(p.extra,1);const q=new Performance([note()]);assert.equal(q.on(60,72,.6),null);});
+test('tempo scaling and channel-specific key releases remain independent',()=>{const p=new Performance([note(60,1,1),note(60,1,1)],.5);p.on(60,72,2,0);p.on(60,72,2,1);p.off(60,4,1);assert.equal(p.matches[0].duration,null);assert.equal(p.matches[1].duration,0);assert.equal(p.result().duration,50);p.off(60,4,0);assert.equal(p.result().duration,100);});
+test('an extra same-pitch press does not steal an earlier release',()=>{const p=new Performance([note()]);p.on(60,72,0);p.on(60,72,.1);p.off(60,1);p.off(60,1.2);assert.equal(p.matches[0].duration,0);assert.equal(p.extra,1);});
+test('unreleased notes receive zero duration credit',()=>{const p=new Performance([note()]);p.on(60,72,0);assert.equal(p.result().duration,0);assert.equal(p.result().unreleased,1);});

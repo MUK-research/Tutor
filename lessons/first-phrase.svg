@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 205" role="img" aria-label="C major exercise, four bars of quarter notes in four four at 80 beats per minute, mezzo forte">
+<rect width="1100" height="205" fill="white"/>
+<g fill="#27383b" stroke="#27383b">
+<path d="M30 72H1070" stroke-width=".8"/>
+<path d="M30 84H1070" stroke-width=".8"/>
+<path d="M30 96H1070" stroke-width=".8"/>
+<path d="M30 108H1070" stroke-width=".8"/>
+<path d="M30 120H1070" stroke-width=".8"/>
+<text x="30" y="52" stroke="none" font-family="serif" font-size="16">Quarter note = 80</text>
+<text x="32" y="121" stroke="none" font-family="serif" font-size="65">𝄞</text>
+<text x="85" y="94" stroke="none" font-family="serif" font-size="29">4</text>
+<text x="85" y="119" stroke="none" font-family="serif" font-size="29">4</text>
+<text x="123" y="176" stroke="none" font-family="serif" font-style="italic" font-size="22">mf</text>
+<ellipse cx="140" cy="132" rx="7" ry="5" transform="rotate(-20 140 132)"/>
+<path d="M146 132V98" stroke-width="1.4"/>
+<path d="M129 132H151"/>
+<ellipse cx="197" cy="126" rx="7" ry="5" transform="rotate(-20 197 126)"/>
+<path d="M203 126V92" stroke-width="1.4"/>
+<ellipse cx="254" cy="120" rx="7" ry="5" transform="rotate(-20 254 120)"/>
+<path d="M260 120V86" stroke-width="1.4"/>
+<ellipse cx="311" cy="114" rx="7" ry="5" transform="rotate(-20 311 114)"/>
+<path d="M317 114V80" stroke-width="1.4"/>
+<path d="M340 72V120"/>
+<ellipse cx="368" cy="108" rx="7" ry="5" transform="rotate(-20 368 108)"/>
+<path d="M374 108V74" stroke-width="1.4"/>
+<ellipse cx="425" cy="114" rx="7" ry="5" transform="rotate(-20 425 114)"/>
+<path d="M431 114V80" stroke-width="1.4"/>
+<ellipse cx="482" cy="120" rx="7" ry="5" transform="rotate(-20 482 120)"/>
+<path d="M488 120V86" stroke-width="1.4"/>
+<ellipse cx="539" cy="126" rx="7" ry="5" transform="rotate(-20 539 126)"/>
+<path d="M545 126V92" stroke-width="1.4"/>
+<path d="M568 72V120"/>
+<ellipse cx="596" cy="132" rx="7" ry="5" transform="rotate(-20 596 132)"/>
+<path d="M602 132V98" stroke-width="1.4"/>
+<path d="M585 132H607"/>
+<ellipse cx="653" cy="120" rx="7" ry="5" transform="rotate(-20 653 120)"/>
+<path d="M659 120V86" stroke-width="1.4"/>
+<ellipse cx="710" cy="108" rx="7" ry="5" transform="rotate(-20 710 108)"/>
+<path d="M716 108V74" stroke-width="1.4"/>
+<ellipse cx="767" cy="90" rx="7" ry="5" transform="rotate(-20 767 90)"/>
+<path d="M761 90V124" stroke-width="1.4"/>
+<path d="M796 72V120"/>
+<ellipse cx="824" cy="96" rx="7" ry="5" transform="rotate(-20 824 96)"/>
+<path d="M818 96V130" stroke-width="1.4"/>
+<ellipse cx="881" cy="108" rx="7" ry="5" transform="rotate(-20 881 108)"/>
+<path d="M887 108V74" stroke-width="1.4"/>
+<ellipse cx="938" cy="120" rx="7" ry="5" transform="rotate(-20 938 120)"/>
+<path d="M944 120V86" stroke-width="1.4"/>
+<ellipse cx="995" cy="132" rx="7" ry="5" transform="rotate(-20 995 132)"/>
+<path d="M1001 132V98" stroke-width="1.4"/>
+<path d="M984 132H1006"/>
+<path d="M1024 72V120"/>
+<path d="M1067 72V120" stroke-width="3"/>
+</g></svg>
