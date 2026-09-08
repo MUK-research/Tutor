@@ -20,7 +20,13 @@ For local development, serve the repository root, for example `python3 -m http.s
 4. Press **Start practice**, wait for the four-beat count-in, then play. Optional metronome and tempo scaling are available. Tempo scaling applies equally to reference onsets and durations, including tempo changes in the MIDI file.
 5. The session ends 1.5 seconds after the last reference release. Stop saves a partial session, clearly marked. Leaving the tab or losing the selected input stops the session to avoid unreliable background timing.
 
-Practice, listening, and the demo enter focus view automatically, keeping all controls at the top while hiding history and help. Stopping restores the previous view. Focus can also be toggled manually. Score zoom ranges from 20% to 300% of the panel width; Fit page shows the entire portrait sheet. Zoomed pages can be scrolled. Narrow screens stack the score and graph vertically. Session summaries appear below the cube. Up to 50 sessions, including raw matched-note deviations and sampled traces, are saved locally; the history shows the latest 30. Local files remain on this browser and do not sync between devices. Browser data clearing removes them. Storage failures are reported instead of claiming a successful save.
+The focus layout is now the only layout. All controls stay above the practice surfaces. **Full screen** expands the page; **Exit full screen** returns to the browser and clears the saved full-screen preference. Escape exits for this visit while retaining the preference for the next lesson. History and help remain collapsed below the practice area.
+
+Add `&fullscreen=1` to a lesson link, for example https://muk-research.github.io/Tutor/?lesson=test&fullscreen=1 . `fullscreen=true` and a bare `fullscreen` parameter also enable the request; `fullscreen=0` overrides a saved preference for this visit. A successful full-screen entry is remembered in this browser. Fullscreen APIs require a user gesture, so a requested or remembered full-screen mode is entered on the first eligible click (such as Start or clicking the score), not unconditionally on page load. MIDI connection, file selection, and Copy link retain their own browser activation. Unsupported or denied full-screen requests show a message and leave practice usable. Copy lesson link includes the full-screen request when enabled.
+
+The subtle progress indicator spans only the score panel, with elapsed and total time below it; it does not form a divider across the graph.
+
+Score zoom ranges from 20% to 300% of the panel width; Fit page shows the entire portrait sheet. Zoomed pages can be scrolled. Narrow screens stack the score and graph vertically. Session summaries appear below the cube. Up to 50 sessions, including raw matched-note deviations and sampled traces, are saved locally; the history shows the latest 30. Local files remain on this browser and do not sync between devices. Browser data clearing removes them. Storage failures are reported instead of claiming a successful save.
 
 ## The cube
 
@@ -30,9 +36,9 @@ The centre of all three ranges is an exact reference match. Cube edges indicate 
 | --- | --- | --- | --- |
 | Green, vertical | Softer | Reference velocity | Louder |
 | Red, right | Early | Reference onset | Late |
-| Blue, left | Shorter | Reference key-hold duration | Longer |
+| Blue, left | Longer | Reference key-hold duration | Shorter |
 
-The projection preserves the supplied three-axis orientation and draws the full cube. A 200 ms exponential interpolation smooths displayed movement, and the trailing 6.5 seconds fade away. Reduced-motion preferences remove positional interpolation. Onset and velocity update at note-on; duration becomes available at note-off. Until the next release, the duration axis holds the last measured duration error. This represents recent note events, not a continuous measurement of a still-held note. There is no pedal-duration scoring.
+The projection preserves the supplied three-axis orientation and draws the full cube. Duration is visually reversed: shorter key presses travel toward the left/front end; longer key presses toward the opposite end. Raw duration errors and scoring retain their original signs; only the plotted coordinate is reversed. A 200 ms exponential interpolation smooths displayed movement, and the trailing 6.5 seconds fade away. Reduced-motion preferences remove positional interpolation. Onset and velocity update at note-on; duration becomes available at note-off. Until the next release, the duration axis holds the last measured duration error. This represents recent note events, not a continuous measurement of a still-held note. There is no pedal-duration scoring.
 
 ## Matching and scoring, version 1
 
