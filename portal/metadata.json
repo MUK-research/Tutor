@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "title": "Tutor",
+  "description": "See the shape of a phrase. Compare MIDI dynamics, onset timing and key-hold duration with a reference lesson, then review how the three components evolve across the score. A visual aid for practice, not an automatic musical judgement.",
+  "category": "learning",
+  "format": "Browser tool",
+  "status": "active",
+  "people": ["Adrián Artacho", "Based on an idea by Jura Margulis"],
+  "tags": ["Piano", "Visual feedback", "Practice"],
+  "preview": "./preview.svg",
+  "previewAlt": "Schematic isometric feedback cube with coloured traces; illustrative, not measured performance data.",
+  "embed": "./index.html",
+  "project": "../?lesson=test&fullscreen=1",
+  "repository": "https://github.com/MUK-research/Tutor",
+  "documentation": "https://github.com/MUK-research/Tutor#practice",
+  "year": 2026
+}
