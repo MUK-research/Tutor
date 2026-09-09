@@ -1,4 +1,4 @@
-# Tutor
+# [Tutor](https://muk-research.github.io/Tutor/?lesson=test&fullscreen=1)
 
 A quiet, score-first piano practice space. A zoomable A4-proportioned score page sits on the left, with a large isometric performance cube on the right. All controls, status, and progress stay above both surfaces on a light background. A smooth, fading trace compares MIDI input with a reference lesson. All processing and storage happen in the browser. No server, account, external JavaScript dependency, or MIDI output is needed.
 
@@ -116,3 +116,9 @@ The three included examples use the same original C-major phrase with different 
 `npm test` covers the sample MIDI, tempo changes across tracks, running status, malformed files, chord matching, repeated notes, channel-specific releases, tempo scaling, axis signs, and missed/extra/unreleased-note penalties. Library tests cover folder links without metadata or catalog entries, optional scores, custom filenames, invalid paths, missing MIDI, and all bundled lessons. Report tests cover reference-time placement, per-note credits, chord averaging, extra/missing/unreleased/unreached notes, position validation, image letterboxing/zoom, and reference compatibility for saved reports. Syntax and local asset references are also checked during implementation. Real MIDI hardware and browser visual testing are still needed with the intended piano.
 
 Browser and hosting references: [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API), [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
+
+## Credits
+
+Developed by [Adrián Artacho](https://muk.ac.at/studienangebot/lehrende/details/adrian-artacho.html), researcher at the Music and Arts University of the City of Vienna (MUK).
+
+Based on an idea by [Jura Margulis](https://muk.ac.at/studienangebot/lehrende/details/jura-margulis.html).
