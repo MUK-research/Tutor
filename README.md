@@ -40,6 +40,31 @@ The centre of all three ranges is an exact reference match. Cube edges indicate 
 
 The projection preserves the supplied three-axis orientation and draws the full cube. Duration is visually reversed: shorter key presses travel toward the left/front end; longer key presses toward the opposite end. Raw duration errors and scoring retain their original signs; only the plotted coordinate is reversed. A 200 ms exponential interpolation smooths displayed movement, and the trailing 6.5 seconds fade away. Reduced-motion preferences remove positional interpolation. Onset and velocity update at note-on; duration becomes available at note-off. Until the next release, the duration axis holds the last measured duration error. This represents recent note events, not a continuous measurement of a still-held note. There is no pedal-duration scoring.
 
+## Review a phrase over time
+
+After a practice or demo, **Review the phrase** opens a full-width graph at the bottom of the page. It displays dynamics (green solid), onset timing (red dashed), and key duration (blue dotted) as **per-note accuracy from 0–100%**, using the same credit formulas as the overall results. Measurements are placed at their reference onsets, adjusted for the selected tempo. Lines connect note measurements; they are not continuous acoustic measurements. Notes in a chord are averaged on the line, while the individual values remain available in the detail table. Opposing signed errors never cancel out in the accuracy average.
+
+Hover or click on the graph, or move the keyboard-accessible **Inspect the phrase** slider, to see the corresponding notes, exact signed deviations, and percentages. Missed notes appear as crosses below the chart and receive zero credit. Extra notes appear as triangles at their played times and reduce the overall scores; they have no matching score position. Unreleased notes receive zero duration credit and are explicitly labelled. When practice is stopped, the unplayed future section is shaded and marked as not reached rather than shown as measured data. The existing whole-exercise scores still use the full reference, including that unfinished section.
+
+Three **Show on score** checkboxes independently enable optional annotations on the score. All are off initially, and all can be turned off again. The notation stays readable: small colour marks sit below the noteheads, with 20% fill opacity and size/outline strength increasing with error. The three slots are dynamics, timing, duration from left to right. Clicking a marker selects its corresponding time in the report. Missing notes have a cross; an unreleased duration has a dashed outline. Selecting a time highlights the corresponding mapped notes when overlays are enabled. Score markers scale and move with the fitted image, zoom and scroll.
+
+New practice sessions store the report along with their raw events and have a **Review** button in history. Demos remain unsaved. Old sessions retain their previous summaries. If the original lesson is unavailable or its reference has changed, the saved timeline is still viewable, but its feedback is not placed on a different score.
+
+### Align a score image
+
+An image alone contains no machine-readable link to MIDI times. The bundled examples include note positions, so overlays work immediately. For another score, finish a practice or demo, click **Align score**, and click each reference notehead in order. The note number, pitch and original-reference time identify the next note. Use Previous, Next, or the note-number field to skip or correct positions, then Save alignment. Partial alignment is allowed: only mapped notes receive markers. The alignment is local to this browser and reference; replacing the score image may require realignment.
+
+For a shared lesson, provide `scorePositions` in its `lesson.json`. Each `index` is zero-based in the parsed reference's onset/pitch order; `x` and `y` are normalized positions within the original image (0–1), not screen coordinates. Chord notes have independent indices. For example:
+
+```json
+"scorePositions": [
+  {"index": 0, "x": 0.2204, "y": 0.2404},
+  {"index": 1, "x": 0.4093, "y": 0.2351}
+]
+```
+
+Invalid positions are ignored. Position metadata does not change the MIDI reference or scoring. There is no optical score recognition or guessed automatic image-to-time alignment.
+
 ## Matching and scoring, version 1
 
 Each student note-on matches the nearest unused reference note of the same pitch within ±500 ms. Chord order is independent; repeated pitches are matched by onset proximity. Incoming channels are combined for pitch matching, but held notes and releases are tracked per input channel and pitch. Reference notes are paired per track/channel/pitch. MIDI format 0 and 1, PPQ timing, tempo maps, running status, overlapping notes, and note-on with velocity zero are supported. Format 2 and SMPTE divisions are rejected explicitly. Notes missing a release in the file are omitted with a warning.
@@ -88,6 +113,6 @@ The three included examples use the same original C-major phrase with different 
 
 ## Verification
 
-`npm test` covers the sample MIDI, tempo changes across tracks, running status, malformed files, chord matching, repeated notes, channel-specific releases, tempo scaling, axis signs, and missed/extra/unreleased-note penalties. Library tests cover folder links without metadata or catalog entries, optional scores, custom filenames, invalid paths, missing MIDI, and all bundled lessons. Syntax and local asset references are also checked during implementation. Real MIDI hardware and browser visual testing are still needed with the intended piano.
+`npm test` covers the sample MIDI, tempo changes across tracks, running status, malformed files, chord matching, repeated notes, channel-specific releases, tempo scaling, axis signs, and missed/extra/unreleased-note penalties. Library tests cover folder links without metadata or catalog entries, optional scores, custom filenames, invalid paths, missing MIDI, and all bundled lessons. Report tests cover reference-time placement, per-note credits, chord averaging, extra/missing/unreleased/unreached notes, position validation, image letterboxing/zoom, and reference compatibility for saved reports. Syntax and local asset references are also checked during implementation. Real MIDI hardware and browser visual testing are still needed with the intended piano.
 
 Browser and hosting references: [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API), [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).

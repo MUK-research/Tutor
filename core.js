@@ -37,12 +37,12 @@ export function parseMidi(buffer) {
 }
 export const clamp = (x,a=-1,b=1)=>Math.max(a,Math.min(b,x));
 export class Performance {
-  constructor(notes,rate=1){this.notes=notes.map(n=>({...n,onset:n.onset/rate,duration:n.duration/rate}));this.matches=[];this.used=new Set();this.active=new Map();this.extra=0;this.window=.5;}
+  constructor(notes,rate=1){this.notes=notes.map(n=>({...n,onset:n.onset/rate,duration:n.duration/rate}));this.matches=[];this.used=new Set();this.active=new Map();this.extra=0;this.extraNotes=[];this.window=.5;}
   on(pitch,velocity,time,channel=0){
     let best=-1,distance=this.window;
     this.notes.forEach((n,i)=>{const d=Math.abs(n.onset-time);if(n.pitch===pitch&&!this.used.has(i)&&d<=distance){distance=d;best=i;}});
     const key=`${channel}:${pitch}`;if(!this.active.has(key))this.active.set(key,[]);
-    if(best<0){this.extra++;this.active.get(key).push(null);return null;}
+    if(best<0){this.extra++;this.extraNotes.push({pitch,velocity,onset:time,channel});this.active.get(key).push(null);return null;}
     this.used.add(best);const n=this.notes[best];const m={index:best,pitch,velocity,onset:time,timing:time-n.onset,dynamics:velocity-n.velocity,duration:null};
     this.matches.push(m);this.active.get(key).push(m);return m;
   }

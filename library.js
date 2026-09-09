@@ -12,5 +12,5 @@ export async function loadLibraryLesson(id,request=fetch){
  let image=null;
  if(config.image){if(!filename(config.image,['.png','.jpg','.jpeg','.webp','.svg']))throw Error(`Invalid score filename in ${id}.`);image=folder+encodeURIComponent(config.image);}
  else if(config.image!==null){const candidates=[`${id}.svg`,`${id}.png`,`${id}.jpg`,`${id}.webp`,'score.svg','score.png','score.jpg','score.webp'];const found=await Promise.all(candidates.map(async name=>{try{const r=await request(folder+encodeURIComponent(name),{method:'HEAD'});return r.ok?folder+encodeURIComponent(name):null;}catch{return null;}}));image=found.find(Boolean)||null;}
- return {id,title:typeof config.title==='string'?config.title:id,...parsed,image,shared:true};
+ return {id,title:typeof config.title==='string'?config.title:id,...parsed,image,scorePositions:config.scorePositions||[],shared:true};
 }
